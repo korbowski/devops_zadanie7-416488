@@ -19,11 +19,11 @@ def test_dzielenie():
 def test_create_dataframe():
     test_data = {'col1': [1, 2], 'col2': [3, 4]}
     df = create_dataframe(test_data)
-    assert isinstance(df, pandas.DataFrame)
+    assert isinstance(df, pd.DataFrame)
     assert not df.empty
 
 def test_get_dataframe_shape():
     test_data = {'col1': [1, 2, 3], 'col2': [4, 5, 6]}
-    df = pandas.DataFrame(test_data)
+    df = pd.DataFrame(test_data)
     shape = get_dataframe_shape(df)
     assert shape == (3, 2)
