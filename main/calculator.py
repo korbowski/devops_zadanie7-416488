@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 
 def dodawanie(liczba1, liczba2):
     return np.add(liczba1, liczba2)
@@ -15,10 +14,3 @@ def dzielenie(liczba1, liczba2):
         return np.divide(liczba1, liczba2)
     else:
         return "Błąd: dzielenie przez zero!"
-
-def create_dataframe(data):
-    df = pd.DataFrame(data)
-    return df
-
-def get_dataframe_shape(df):
-    return df.shape
