@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         # Zakładamy, że requirements.txt i testy są w folderze 'main'
-        working-directory: ./main
+        working-directory: .
         run: pip install -r requirements.txt
       
       # Zakładam, że masz osobny plik dla testów jednostkowych, np. test_unit.py
@@ -44,7 +44,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        working-directory: ./main
+        working-directory: .
         run: pip install -r requirements.txt
 
       # Uruchamiamy aplikację w tle i ZAPISUJEMY jej logi
