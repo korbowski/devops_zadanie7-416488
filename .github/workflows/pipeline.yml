@@ -19,7 +19,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run test for dodawanie
-        run: pytest test_main.py::test_dodawanie
+        run: pytest calculator_test.py::test_dodawanie
 
   test_odejmowanie:
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run test for odejmowanie
-        run: pytest test_main.py::test_odejmowanie
+        run: pytest calculator_test.py::test_odejmowanie
 
   test_mnozenie:
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run test for mnozenie
-        run: pytest test_main.py::test_mnozenie
+        run: pytest calculator_test.py::test_mnozenie
 
   test_dzielenie:
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run test for dzielenie
-        run: pytest test_main.py::test_dzielenie
+        run: pytest calculator_test.py::test_dzielenie
 
   new_tests:
     runs-on: ubuntu-latest
@@ -81,5 +81,5 @@ jobs:
           pip install -r requirements.txt
       - name: Run new pandas tests
         run: |
-          pytest test_main.py::test_create_dataframe
-          pytest test_main.py::test_get_dataframe_shape
+          pytest calculator_test.py::test_create_dataframe
+          pytest calculator_test.py::test_get_dataframe_shape
