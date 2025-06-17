@@ -22,26 +22,51 @@ jobs:
       run: |
         pytest main/calculator_test.py
 
-  functional_test:
+    functional_test:
     needs: unit_test
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+
+    # Zakładam, że plik jest w ./main
     - name: Install requirements
+      working-directory: ./main 
+      run: pip install -r requirements.txt
+
+    # KROK 1: Uruchamiamy aplikację i ZAPISUJEMY jej logi do pliku
+    - name: Run application in background and capture logs
+      working-directory: ./main
       run: |
-        pip install -r requirements.txt
-    - name: Run app
+        # Uruchom apkę w tle i przekieruj jej logi (stdout i stderr) do pliku app_log.txt
+        python app.py > app_log.txt 2>&1 &
+        sleep 5 # Daj jej chwilę na start lub... na wygenerowanie błędu
+
+    # KROK 2: WYŚWIETLAMY logi aplikacji. Jeśli są tam błędy, teraz je zobaczymy!
+    - name: Display application logs
+      working-directory: ./main
       run: |
-        python main/app.py &
-        sleep 5
-    - name: Functional tests
+        echo "--- Contents of app_log.txt ---"
+        cat app_log.txt
+        echo "-------------------------------"
+
+    # KROK 3: Sprawdzamy, czy proces Pythona w ogóle działa i co nasłuchuje na portach
+    - name: Check running processes and ports
       run: |
-        pytest main/app_test.py
+        echo "--- Running Python processes ---"
+        ps aux | grep python || echo "NO PYTHON PROCESS FOUND"
+        echo "--- Listening ports ---"
+        sudo lsof -i -P -n | grep LISTEN || echo "NO LISTENING PORTS FOUND"
+
+    # Krok 4: Uruchamiamy testy
+    - name: Run functional tests
+      working-directory: ./main
+      run: pytest app_test.py
 
   deployment:
     needs: functional_test
